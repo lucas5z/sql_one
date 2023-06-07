@@ -23,14 +23,15 @@ CREATE TABLE Libro(
   UNIQUE (Titulo)
 );
 CREATE TABLE Ejemplar(
-  Cod_ejemplar CHAR(2) NOT NULL Cod_libro CHAR(8) NOT NULL,
+  Cod_ejemplar CHAR(2) NOT NULL,
+  Cod_libro CHAR(8) NOT NULL,
   Fecha_ingreso DATETIME NOT NULL,
   Precio DECIMAL(5, 2),
   PRIMARY KEY (Cod_ejemplar, Cod_libro),
   FOREIGN KEY (Cod_libro) REFERENCES Libro(Cod_libro)
 );
 CREATE TABLE Prestamo(
-  Cod_lector CHAR (5) NOT NULL,
+  Cod_lector CHAR(5) NOT NULL,
   Cod_ejemplar CHAR(2) NOT NULL,
   Cod_libro CHAR(8) NOT NULL,
   Fecha DATETIME NOT NULL,
@@ -38,4 +39,14 @@ CREATE TABLE Prestamo(
   PRIMARY KEY(Cod_lector, Cod_ejemplar, Cod_libro),
   FOREIGN KEY (Cod_lector) REFERENCES Lector(Cod_lector),
   FOREIGN KEY (Cod_ejemplar, Cod_libro) REFERENCES Ejmeplar(Cod_ejemplar)
+);
+CREATE TABLE Prestamo(
+  Cod_lector CHAR(5) NOT NULL,
+  Cod_ejemplar CHAR(2) NOT NULL,
+  Cod_libro CHAR(8) NOT NULL,
+  Fecha DATETIME NOT NULL,
+  Fecha_devo DATETIME,
+  PRIMARY KEY(Cod_lector, Cod_ejemplar, Cod_libro),
+  FOREIGN KEY (Cod_lector) REFERENCES Lector(Cod_lector),
+  FOREIGN KEY (Cod_ejemplar, Cod_libro) REFERENCES Ejemplar(Cod_ejemplar, Cod_libro)
 );
